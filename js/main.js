@@ -1,15 +1,10 @@
 /**
- * @author kemunpus@hotmail.com
+ * @author <kemunpus@hotmail.com>
  */
-var potdHandler = {};
-
-potdHandler['wikimedia'] = updateWallpaperByWikimedia;
-potdHandler['nasa'] = updateWallpaperByNasa;
-potdHandler['nationalgeographic'] = updateWallpaperByNationalGeograpic;
 
 updateClock();
 
-potdHandler[currentPotd]();
+updateWallpaperBy[currentPotd]();
 
 function updateClock() {
   var showSec = localStorage['showSec'] === "true" ? true : false;
@@ -35,56 +30,76 @@ function updateClock() {
   setTimeout(updateClock, 1000);
 }
 
-function updateWallpaperByWikimedia() {
-  var apiUrl = "https://commons.wikimedia.org/w/api.php?action=query&format=json&prop=imageinfo&generator=images&formatversion=2&iiprop=url&titles=Template%3APotd%2F";
+function updateWallpaper(potdName, apiUrl, suffix, firstKey, secondKey, ext) {
+  console.log("trying to update wallpaper from " + potdName);
+
+  potd.text = potdTitle[potdName];
+  potd.href = potdUrl[potdName];
+
+  var lastApiRequest = localStorage['lastApiRequest'];
+  var lastImageUrl = localStorage['lastImageUrl'];
+
+  var now = new Date();
+  var utc = new Date(now.valueOf() + now.getTimezoneOffset() * 60000);
+  var today = utc.getFullYear() + "-" + ("00" + (utc.getMonth() + 1)).slice(-2) + "-" + ("00" + utc.getDate()).slice(-2);
+
+  var apiRequest = apiUrl + today + suffix;
+
+  if (lastApiRequest && lastApiRequest === apiRequest && lastImageUrl) {
+    console.log("generated api request might be same as the last one, so using lastIimage : " + lastImageUrl);
+    wallpaper.style.backgroundImage = "url(" + lastImageUrl + ")";
+
+    return;
+  }
 
   try {
-    potd.text = potdTitle['wikimedia'];
-    potd.href = potdUrl['wikimedia'];
-
-    var lastApiRequest = localStorage['lastApiRequest'];
-    var lastImageUrl = localStorage['lastImageUrl'];
-
-    var now = new Date();
-    var utc = new Date(now.valueOf() + now.getTimezoneOffset() * 60000);
-    var today = utc.getFullYear() + "-" + ("00" + (utc.getMonth() + 1)).slice(-2) + "-" + ("00" + utc.getDate()).slice(-2);
-
-    var apiRequest = apiUrl + today;
-
-    if (lastApiRequest && lastApiRequest === apiRequest && lastImageUrl) {
-      console.log("today is same, so using lastIimage=" + lastImageUrl);
-      wallpaper.style.backgroundImage = "url(" + lastImageUrl + ")";
-
-      return;
-    }
-
     var xmlhttpRequest = new XMLHttpRequest();
     var done = false;
+    var imageUrl = "";
 
     xmlhttpRequest.open("GET", apiRequest, true);
+    console.log("calling api : " + apiRequest);
+
     xmlhttpRequest.onreadystatechange = function() {
 
       if (this.readyState === 4 && this.status === 200) {
-        console.log("parseing respnse as json=" + this.response);
+        console.log("parseing api respnse as json : " + this.response);
 
         JSON.parse(this.response, function(key, value) {
 
-          if (!done && key === "url" && value && value.endsWith(".jpg")) {
-            console.log("set image from url=" + value);
-            wallpaper.style.backgroundImage = "url(" + value + ")";
+          if (!done && value) {
 
-            localStorage['lastApiRequest'] = apiRequest;
-            localStorage['lastImageUrl'] = value;
+            if (key === firstKey) {
 
-            done = true;
+              if (!ext || value.endsWith(ext)) {
+                imageUrl = value;
+
+                if (!secondKey) {
+                  done = true;
+                }
+              }
+
+            } else if (key === secondKey) {
+
+              if (!ext || value.endsWith(ext)) {
+                imageUrl = imageUrl + value;
+                done = true;
+              }
+            }
           }
 
           return value;
         });
 
-        if (!done && lastImageUrl) {
-          console.log("may be the image is not jpeg, so using lastIimage=" + lastImageUrl);
+        if (done && imageUrl.length > 0) {
+          console.log("set background image from url : " + imageUrl);
+          wallpaper.style.backgroundImage = "url(" + imageUrl + ")";
 
+          localStorage['lastApiRequest'] = apiRequest;
+          localStorage['lastImageUrl'] = imageUrl;
+
+        } else if (lastImageUrl) {
+          console.log("can not find the correct key, or may be the image does not have a valid ext. so using lastIimage : " + lastImageUrl);
           wallpaper.style.backgroundImage = "url(" + lastImageUrl + ")";
         }
       }
@@ -93,14 +108,10 @@ function updateWallpaperByWikimedia() {
     xmlhttpRequest.send();
 
   } catch (e) {
-    console.log("updateWallpaper() : exception=" + e);
+    console.log("exception : " + e);
+
+    if (lastImageUrl) {
+      wallpaper.style.backgroundImage = "url(" + lastImageUrl + ")";
+    }
   }
-}
-
-function updateWallpaperByNasa() {
-
-}
-
-function updateWallpaperByNationalGeograpic() {
-
 }

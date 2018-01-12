@@ -5,28 +5,34 @@
   "short_name": {
     "message": "PotdClock"
   },
+  "author": {
+    "message": "kemunpus@hotmail.com"
+  },
   "description": {
-    "message": "Simple Chrome extension that shows 'Photo of the day' on the 'New Tab' page with digital clock."
+    "message": "Simple Chrome extension that shows 'Photo of the day' on the 'New Tab' page with a digital clock."
   },
   "potd": {
-    "message": "Source site of 'Photo of the day'."
+    "message": "Source Web-Site:"
+  },
+  "options": {
+    "message": "Display options:"
   },
   "show_sec": {
-    "message": "Show second in the clock."
+    "message": "Show seconds in a clock"
   },
   "show_date": {
-    "message": "Show date in the clock."
+    "message": "Show date in a clock"
   },
   "show_memory": {
-    "message": "Add memory usage bar below the clock."
+    "message": "Add memory usage bar below a clock"
   },
   "save": {
-    "message": "Save settings"
+    "message": " Save "
   },
   "reset": {
-    "message": "Reset settings as default."
+    "message": "Reset"
   },
   "cancel": {
-    "message": "Cancel."
+    "message": "Cancel"
   }
 }

@@ -13,23 +13,57 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center center;
+  background-size: cover;
 }
 
 div.pane {
   position: absolute;
   top: 50%;
   left: 50%;
+  padding: 12pt;
   transform: translate(-50%, -50%);
-  background-color: #cccccc;
+  background-color: #fefefe;
   color: #000000;
+  box-shadow: 5px 5px 10px;
+  border: 1px solid #000;
 }
 
-h1 {
-  text-align: center;
-  font-size: : 32pt;
+img.icon {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-h2 {
+div.name {
+  font-size: 24pt;
   text-align: center;
-  font-size: : 24pt;
+}
+
+div.description {
+  text-align: center;
+}
+
+div.author {
+  text-align: center;
+}
+
+table {
+  padding: 12pt;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+td.caption {
+  text-align: right;
+}
+
+div.buttons {
+  text-align: center;
+}
+
+a.author {
+  color: #000000;
 }

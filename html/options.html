@@ -9,51 +9,47 @@
   <script defer src="../js/options.js"></script>
 </head>
 
-<body>
+<body id="wallpaper">
   <div class="pane">
-    <h1><img class="icon" src="../image/icon-128.png"></img>__MSG_name__</h1>
-    <h2>__MSG_description__</h2>
-
+    <img class="icon" src="../image/icon-128.png"></img>
+    <div class="name">__MSG_name__</div>
+    <div class="description">__MSG_description__</div>
+    <hr/>
     <form>
-
-      <div class="item">
-        <span class="note">__MSG_potd__</span>
-        <div class="control">
-          <select id="potd"> </select>
-        </div>
+      <table>
+        <tr>
+          <td class="caption">__MSG_potd__</td>
+          <td class="entry"><select id="potd"> </select></td>
+        </tr>
+        <tr>
+          <td class="caption">__MSG_options__</td>
+          <td class="entry">
+            <input id="showSec" class="entry" type="checkbox">__MSG_show_sec__</input>
+          </td>
+        </tr>
+        <tr>
+          <td class="caption"></td>
+          <td class="entry">
+            <input id="showDate" class="entry" type="checkbox">__MSG_show_date__</input>
+          </td>
+        </tr>
+        <tr>
+          <td class="caption"></td>
+          <td class="entry">
+            <input id="showMemory" class="entry" type="checkbox">__MSG_show_memory__</input>
+          </td>
+        </tr>
+      </table>
+      <div class="buttons">
+        <input id="save" class="save" type="button" value="__MSG_save__"></input>
+        <input id="reset" class="reset" type="button" value="__MSG_reset__"></input>
+        <input id="cancel" class="cancel" type="button" value="__MSG_cancel__"></input>
       </div>
-
-      <div class="block">
-        <div class="entry">
-          <input id="showSec" type="checkbox">__MSG_show_sec__</input>
-        </div>
-      </div>
-
-      <div class="block">
-        <div class="entry">
-          <input id="showDate" type="checkbox">__MSG_show_date__</input>
-        </div>
-      </div>
-
-      <div class="block">
-        <div class="entry">
-          <input id="showMemory" type="checkbox">__MSG_show_memory__</input>
-        </div>
-      </div>
-
-      <div class="block">
-        <div class="entry">
-          <input id="save" type="button" class="save" value="__MSG_save__"></input>
-        </div>
-        <div class="entry">
-          <input id="reset" type="button" class="reset" value="__MSG_reset__"></input>
-        </div>
-        <div class="entry">
-          <input id="cancel" type="button" class="cancel" value="__MSG_cancel__"></input>
-        </div>
-      </div>
-
     </form>
+    <hr/>
+    <div class="author">
+      <a class="author" href="mailto:__MSG_author__">__MSG_author__</a>
+    </div>
   </div>
 </body>
 

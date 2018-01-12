@@ -1,5 +1,5 @@
 /**
- * @author kemunpus@hotmail.com
+ * @author <kemunpus@hotmail.com>
  */
 function i18nConvert() {
   var html = document.getElementsByTagName('html');

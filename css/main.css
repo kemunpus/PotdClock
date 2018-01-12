@@ -1,0 +1,56 @@
+html {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #000000;
+  color: #ffffff;
+}
+
+body {
+  text-align: center;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center center;
+  background-size: cover;
+}
+
+div.clock {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -75%);
+}
+
+div.time {
+  font-size: 120pt;
+  text-shadow: 0 0 25px #000000;
+}
+
+div.date {
+  font-size: 32pt;
+  text-shadow: 0 0 25px #000000;
+}
+
+meter.memory {
+  width: 50%;
+  height: 8pt;
+}
+
+div.potd {
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+a.potd {
+  font-size: 12pt;
+  color: #ffffff;
+  text-shadow: 0 0 25px #000000;
+}

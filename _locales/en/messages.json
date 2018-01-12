@@ -1,0 +1,32 @@
+{
+  "name": {
+    "message": "'Photo of the day' Clock"
+  },
+  "short_name": {
+    "message": "PotdClock"
+  },
+  "description": {
+    "message": "Simple Chrome extension that shows 'Photo of the day' on the 'New Tab' page with digital clock."
+  },
+  "potd": {
+    "message": "Source site of 'Photo of the day'."
+  },
+  "show_sec": {
+    "message": "Show second in the clock."
+  },
+  "show_date": {
+    "message": "Show date in the clock."
+  },
+  "show_memory": {
+    "message": "Add memory usage bar below the clock."
+  },
+  "save": {
+    "message": "Save settings"
+  },
+  "reset": {
+    "message": "Reset settings as default."
+  },
+  "cancel": {
+    "message": "Cancel."
+  }
+}

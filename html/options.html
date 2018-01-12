@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="../css/options.css">
+  <script defer src="../js/potds.js"></script>
+  <script defer src="../js/i18n.js"></script>
+  <script defer src="../js/options.js"></script>
+</head>
+
+<body>
+  <div class="pane">
+    <h1><img class="icon" src="../image/icon-128.png"></img>__MSG_name__</h1>
+    <h2>__MSG_description__</h2>
+
+    <form>
+
+      <div class="item">
+        <span class="note">__MSG_potd__</span>
+        <div class="control">
+          <select id="potd"> </select>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="entry">
+          <input id="showSec" type="checkbox">__MSG_show_sec__</input>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="entry">
+          <input id="showDate" type="checkbox">__MSG_show_date__</input>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="entry">
+          <input id="showMemory" type="checkbox">__MSG_show_memory__</input>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="entry">
+          <input id="save" type="button" class="save" value="__MSG_save__"></input>
+        </div>
+        <div class="entry">
+          <input id="reset" type="button" class="reset" value="__MSG_reset__"></input>
+        </div>
+        <div class="entry">
+          <input id="cancel" type="button" class="cancel" value="__MSG_cancel__"></input>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</body>
+
+</html>

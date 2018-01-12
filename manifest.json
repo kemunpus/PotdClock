@@ -1,0 +1,27 @@
+{
+  "update_url": "https://clients2.google.com/service/update2/crx",
+  "manifest_version": 2,
+  "version": "1.0.1",
+  "author": "kemunpus@hotmail.com",
+  "default_locale": "en",
+  "name": "__MSG_name__",
+  "short_name": "__MSG_short_name__",
+  "description": "__MSG_description__",
+  "offline_enabled": true,
+
+  "icons": {
+    "128": "image/icon-128.png"
+  },
+
+  "options_page": "html/options.html",
+
+  "chrome_url_overrides": {
+    "newtab": "html/main.html"
+  },
+
+  "permissions": [
+    "storage",
+    "system.memory",
+    "https://*.wikimedia.org/"
+  ]
+}

@@ -1,6 +1,8 @@
 /**
  * @author <kemunpus@hotmail.com>
  */
+ "use strict";
+ 
 function i18nConvert() {
   var html = document.getElementsByTagName('html');
 

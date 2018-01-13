@@ -1,11 +1,9 @@
 /**
  * @author <kemunpus@hotmail.com>
  */
-var lastImageUrl = localStorage['lastImageUrl'];
+"use strict";
 
-if (lastImageUrl) {
-  wallpaper.style.backgroundImage = "url(" + lastImageUrl + ")";
-}
+setWallpaper(localStorage['lastApiRequest'], localStorage['lastImageUrl'], 0.5);
 
 i18nConvert();
 
@@ -34,8 +32,10 @@ function doSave() {
   localStorage["showSec"] = showSec.checked ? "true" : "false";
   localStorage["showDate"] = showDate.checked ? "true" : "false";
   localStorage["showMemory"] = showMemory.checked ? "true" : "false";
+  localStorage["lastApiRequest"] = "";
+  localStorage["lastImageUrl"] = "";
 
-  open("about:blank", "_self").close();
+  closeOptions();
 }
 
 function doReset() {
@@ -46,10 +46,20 @@ function doReset() {
   localStorage["lastApiRequest"] = "";
   localStorage["lastImageUrl"] = "";
 
-  // window.location.reload(true);
-  open("about:blank", "_self").close();
+  closeOptions();
 }
 
 function doCancel() {
-  open("about:blank", "_self").close();
+  closeOptions();
+}
+
+function closeOptions() {
+
+  chrome.tabs.create({
+    "url": "chrome://newtab",
+    "selected": true
+  }, null);
+
+  //open("", "_self").close();
+  window.close();
 }

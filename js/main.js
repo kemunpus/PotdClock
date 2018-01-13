@@ -1,6 +1,7 @@
 /**
  * @author <kemunpus@hotmail.com>
  */
+"use strict";
 
 updateClock();
 
@@ -33,6 +34,8 @@ function updateClock() {
 function updateWallpaper(potdName, apiUrl, suffix, firstKey, secondKey, ext) {
   console.log("trying to update wallpaper from " + potdName);
 
+  var opacity = 1.0;
+
   potd.text = potdTitle[potdName];
   potd.href = potdUrl[potdName];
 
@@ -45,9 +48,10 @@ function updateWallpaper(potdName, apiUrl, suffix, firstKey, secondKey, ext) {
 
   var apiRequest = apiUrl + today + suffix;
 
-  if (lastApiRequest && lastApiRequest === apiRequest && lastImageUrl) {
-    console.log("generated api request might be same as the last one, so using lastIimage : " + lastImageUrl);
-    wallpaper.style.backgroundImage = "url(" + lastImageUrl + ")";
+  if (apiRequest === lastApiRequest) {
+    console.log("api request might be same as the last one");
+
+    setWallpaper(lastApiRequest, lastImageUrl, opacity);
 
     return;
   }
@@ -75,6 +79,7 @@ function updateWallpaper(potdName, apiUrl, suffix, firstKey, secondKey, ext) {
                 imageUrl = value;
 
                 if (!secondKey) {
+                  setWallpaper(apiRequest, imageUrl, opacity);
                   done = true;
                 }
               }
@@ -83,6 +88,7 @@ function updateWallpaper(potdName, apiUrl, suffix, firstKey, secondKey, ext) {
 
               if (!ext || value.endsWith(ext)) {
                 imageUrl = imageUrl + value;
+                setWallpaper(apiRequest, imageUrl, opacity);
                 done = true;
               }
             }
@@ -90,28 +96,14 @@ function updateWallpaper(potdName, apiUrl, suffix, firstKey, secondKey, ext) {
 
           return value;
         });
-
-        if (done && imageUrl.length > 0) {
-          console.log("set background image from url : " + imageUrl);
-          wallpaper.style.backgroundImage = "url(" + imageUrl + ")";
-
-          localStorage['lastApiRequest'] = apiRequest;
-          localStorage['lastImageUrl'] = imageUrl;
-
-        } else if (lastImageUrl) {
-          console.log("can not find the correct key, or may be the image does not have a valid ext. so using lastIimage : " + lastImageUrl);
-          wallpaper.style.backgroundImage = "url(" + lastImageUrl + ")";
-        }
       }
     };
 
     xmlhttpRequest.send();
 
   } catch (e) {
-    console.log("exception : " + e);
-
-    if (lastImageUrl) {
-      wallpaper.style.backgroundImage = "url(" + lastImageUrl + ")";
-    }
+    console.error(e);
   }
+
+  setWallpaper(lastApiRequest, lastImageUrl, opacity);
 }

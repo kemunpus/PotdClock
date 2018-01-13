@@ -112,7 +112,7 @@ function updateWallpaper(potdName, apiUrl, suffix, firstKey, secondKey, ext) {
 function setWallpaper(potdName, apiRequest, imageUrl) {
     wallpaper.style.opacity = 0.0;
 
-    if (!apiRequest || apiRequest.length == 0 || !imageUrl || imageUrl.length === 0) {
+    if (!apiRequest || apiRequest.length === 0 || !imageUrl || imageUrl.length === 0) {
         console.log(`trying to use the last data due to invalid imageUrl : ${imageUrl} and/or api request : ${apiRequest}`);
 
         potdName = localStorage['lastPotd'];
@@ -120,7 +120,7 @@ function setWallpaper(potdName, apiRequest, imageUrl) {
         imageUrl = localStorage['lastImageUrl'];
     }
 
-    if (!apiRequest || apiRequest.length == 0 || !imageUrl || imageUrl.length === 0) {
+    if (!apiRequest || apiRequest.length === 0 || !imageUrl || imageUrl.length === 0) {
         console.log(`cancel image loading due to invalid imageUrl : ${imageUrl} and/or api request : ${apiRequest}`);
 
         return;

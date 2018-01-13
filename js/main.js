@@ -3,8 +3,6 @@
  */
 'use strict';
 
-i18nConvert();
-
 updateClock();
 
 updateWallpaperBy[currentPotd]();
@@ -23,7 +21,7 @@ function updateClock() {
         memory.style.display = 'block';
 
         chrome.system.memory.getInfo(function (info) {
-            memoryMeter.value = (1.0 - (info.availableCapacity / info.capacity));
+            memory.value = 1.0 - info.availableCapacity / info.capacity;
         });
 
     } else {

@@ -1,4 +1,4 @@
-div.pane {
+.pane {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -8,41 +8,50 @@ div.pane {
     color: #000000;
     box-shadow: 5px 5px 10px;
     border: 1px solid #000;
+    z-index: 2;
 }
 
-img.icon {
+.icon {
     display: block;
     margin-left: auto;
     margin-right: auto;
 }
 
-div.name {
+.name {
     font-size: 24pt;
     text-align: center;
 }
 
-div.description {
+.description {
+    font-size: 12pt;
     text-align: center;
 }
 
-div.author {
-    text-align: center;
-}
-
-table {
+.entries {
+    font-size: 10pt;
     padding: 12pt;
     margin-left: auto;
     margin-right: auto;
 }
 
-td.caption {
+.caption {
+    font-size: 10pt;
     text-align: right;
 }
 
-div.buttons {
+.buttons {
     text-align: center;
 }
 
-a.author {
+.button {
+    font-size: 10pt;
+}
+
+.author {
+    text-align: center;
+}
+
+.mail {
+    font-size: 10pt;
     color: #000000;
 }

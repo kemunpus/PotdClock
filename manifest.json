@@ -1,7 +1,7 @@
 {
   "update_url": "https://clients2.google.com/service/update2/crx",
   "manifest_version": 2,
-  "version": "1.0.7",
+  "version": "1.0.8",
   "author": "kemunpus@hotmail.com",
   "name": "'Photo of the day' Clock",
   "short_name": "PotdClock",
@@ -9,6 +9,8 @@
   "default_locale": "en",
   "offline_enabled": true,
   "icons": {
+    "16": "image/icon-16.png",
+    "48": "image/icon-48.png",
     "128": "image/icon-128.png"
   },
   "options_page": "html/options.html",

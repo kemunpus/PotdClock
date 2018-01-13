@@ -9,11 +9,6 @@ showSec.checked = localStorage['showSec'] === 'true' ? true : false;
 showDate.checked = localStorage['showDate'] === 'true' ? true : false;
 showMemory.checked = localStorage['showMemory'] === 'true' ? true : false;
 
-potds.onchange = doSelect;
-save.onclick = doSave;
-reset.onclick = doReset;
-cancel.onclick = doCancel;
-
 for (let potd in potdTitle) {
     const option = document.createElement('option');
 
@@ -25,15 +20,13 @@ for (let potd in potdTitle) {
     option.innerHTML = potdTitle[potd];
 
     potds.appendChild(option);
-
-    updateWallpaperBy[currentPotd]();
 }
 
-function doSelect() {
+potds.onchange = function () {
     updateWallpaperBy[potds.value]();
-}
+};
 
-function doSave() {
+save.onclick = function () {
     localStorage['currentPotd'] = potds.value;
     localStorage['showSec'] = showSec.checked ? 'true' : 'false';
     localStorage['showDate'] = showDate.checked ? 'true' : 'false';
@@ -43,9 +36,9 @@ function doSave() {
     localStorage['lastImageUrl'] = '';
 
     closeOptions();
-}
+};
 
-function doReset() {
+reset.onclick = function () {
     localStorage['currentPotd'] = '';
     localStorage['showSec'] = 'false';
     localStorage['showDate'] = 'false';
@@ -55,11 +48,13 @@ function doReset() {
     localStorage['lastImageUrl'] = '';
 
     closeOptions();
-}
+};
 
-function doCancel() {
+cancel.onclick = function () {
     closeOptions();
-}
+};
+
+updateWallpaperBy[currentPotd]();
 
 function closeOptions() {
 

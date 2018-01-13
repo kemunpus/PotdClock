@@ -1,23 +1,26 @@
-div.clock {
+.clock {
     position: absolute;
     top: 50%;
     left: 50%;
-    text-align: center;
     transform: translate(-50%, -75%);
+    text-align: center;
+    z-index: 2;
 }
 
-div.time {
+.time {
     font-size: 120pt;
     font-family: monospace;
     text-shadow: 0 0 25px #000000;
 }
 
-div.date {
+.date {
     font-size: 32pt;
     text-shadow: 0 0 25px #000000;
 }
 
-meter.memory {
+.memory {
+    margin-left: auto;
+    margin-right: auto;
     width: 50%;
     height: 8pt;
 }

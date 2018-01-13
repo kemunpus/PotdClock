@@ -1,23 +1,23 @@
 div.clock {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  text-align: center;
-  transform: translate(-50%, -75%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    transform: translate(-50%, -75%);
 }
 
 div.time {
-  font-size: 120pt;
-  font-family: monospace;
-  text-shadow: 0 0 25px #000000;
+    font-size: 120pt;
+    font-family: monospace;
+    text-shadow: 0 0 25px #000000;
 }
 
 div.date {
-  font-size: 32pt;
-  text-shadow: 0 0 25px #000000;
+    font-size: 32pt;
+    text-shadow: 0 0 25px #000000;
 }
 
 meter.memory {
-  width: 50%;
-  height: 8pt;
+    width: 50%;
+    height: 8pt;
 }

@@ -15,58 +15,58 @@ reset.onclick = doReset;
 cancel.onclick = doCancel;
 
 for (let potd in potdTitle) {
-  const option = document.createElement('option');
+    const option = document.createElement('option');
 
-  if (currentPotd === potd) {
-    option.setAttribute('selected', 'selected');
-  }
+    if (currentPotd === potd) {
+        option.setAttribute('selected', 'selected');
+    }
 
-  option.setAttribute('value', potd);
-  option.innerHTML = potdTitle[potd];
+    option.setAttribute('value', potd);
+    option.innerHTML = potdTitle[potd];
 
-  potds.appendChild(option);
+    potds.appendChild(option);
 
-  updateWallpaperBy[currentPotd]();
+    updateWallpaperBy[currentPotd]();
 }
 
 function doSelect() {
-  updateWallpaperBy[potds.value]();
+    updateWallpaperBy[potds.value]();
 }
 
 function doSave() {
-  localStorage['currentPotd'] = potds.value;
-  localStorage['showSec'] = showSec.checked ? 'true' : 'false';
-  localStorage['showDate'] = showDate.checked ? 'true' : 'false';
-  localStorage['showMemory'] = showMemory.checked ? 'true' : 'false';
-  localStorage['lastPotd'] = '';
-  localStorage['lastApiRequest'] = '';
-  localStorage['lastImageUrl'] = '';
+    localStorage['currentPotd'] = potds.value;
+    localStorage['showSec'] = showSec.checked ? 'true' : 'false';
+    localStorage['showDate'] = showDate.checked ? 'true' : 'false';
+    localStorage['showMemory'] = showMemory.checked ? 'true' : 'false';
+    localStorage['lastPotd'] = '';
+    localStorage['lastApiRequest'] = '';
+    localStorage['lastImageUrl'] = '';
 
-  closeOptions();
+    closeOptions();
 }
 
 function doReset() {
-  localStorage['currentPotd'] = '';
-  localStorage['showSec'] = 'false';
-  localStorage['showDate'] = 'false';
-  localStorage['showMemory'] = 'false';
-  localStorage['lastPotd'] = '';
-  localStorage['lastApiRequest'] = '';
-  localStorage['lastImageUrl'] = '';
+    localStorage['currentPotd'] = '';
+    localStorage['showSec'] = 'false';
+    localStorage['showDate'] = 'false';
+    localStorage['showMemory'] = 'false';
+    localStorage['lastPotd'] = '';
+    localStorage['lastApiRequest'] = '';
+    localStorage['lastImageUrl'] = '';
 
-  closeOptions();
+    closeOptions();
 }
 
 function doCancel() {
-  closeOptions();
+    closeOptions();
 }
 
 function closeOptions() {
 
-  chrome.tabs.create({
-    'url': 'chrome://newtab',
-    'selected': true
-  }, null);
+    chrome.tabs.create({
+        'url': 'chrome://newtab',
+        'selected': true
+    }, null);
 
-  window.close();
+    window.close();
 }

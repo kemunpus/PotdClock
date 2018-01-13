@@ -1,13 +1,4 @@
 {
-  "name": {
-    "message": "'Photo of the day' Clock"
-  },
-  "short_name": {
-    "message": "PotdClock"
-  },
-  "author": {
-    "message": "kemunpus@hotmail.com"
-  },
   "description": {
     "message": "'今日の一枚'をデジタルクロックと共に'新しいタブ'に表示します."
   },

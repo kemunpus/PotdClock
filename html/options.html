@@ -5,8 +5,8 @@
   <meta charset="utf-8">
   <link rel="stylesheet" href="../css/common.css">
   <link rel="stylesheet" href="../css/options.css">
-  <script defer src="../js/potds.js"></script>
   <script defer src="../js/i18n.js"></script>
+  <script defer src="../js/potds.js"></script>
   <script defer src="../js/options.js"></script>
 </head>
 
@@ -22,7 +22,9 @@
       <table>
         <tr>
           <td class="caption">__MSG_potd__</td>
-          <td class="entry"><select id="potd"> </select></td>
+          <td class="entry">
+            <select id="potds"> </select>
+          </td>
         </tr>
         <tr>
           <td class="caption">__MSG_options__</td>
@@ -53,6 +55,9 @@
     <div class="author">
       <a class="author" href="mailto:__MSG_author__">__MSG_author__</a>
     </div>
+  </div>
+  <div class="potd">
+    <a id="potd" class="potd" target="_blank"> </a>
   </div>
 </body>
 

@@ -11,6 +11,12 @@
   "description": {
     "message": "Simple Chrome extension that shows 'Photo of the day' on the 'New Tab' page with a digital clock."
   },
+  "loading": {
+    "message": "loading..."
+  },
+  "load_error": {
+    "message": "sorry, the web-site seem to be down..."
+  },
   "potd": {
     "message": "Source Web-Site:"
   },

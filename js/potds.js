@@ -7,7 +7,7 @@ var potdTitle = {};
 var potdUrl = {};
 var updateWallpaperBy = {};
 
-potdTitle["wikimedia"] = "Wikimedia Commons 'Photo of the day'";
+potdTitle["wikimedia"] = "Wikimedia Commons 'Picture of the day'";
 potdUrl["wikimedia"] = "https://commons.wikimedia.org/wiki/Main_Page";
 updateWallpaperBy["wikimedia"] = function() {
   // see https://www.mediawiki.org/wiki/API:Showing_interesting_content

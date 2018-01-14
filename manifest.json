@@ -1,7 +1,7 @@
 {
   "update_url": "https://clients2.google.com/service/update2/crx",
   "manifest_version": 2,
-  "version": "1.0.8",
+  "version": "1.0.9",
   "author": "kemunpus@hotmail.com",
   "name": "'Photo of the day' Clock",
   "short_name": "PotdClock",

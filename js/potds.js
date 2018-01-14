@@ -3,29 +3,29 @@
  */
 'use strict';
 
-const currentPotd = localStorage['currentPotd'] ? localStorage['currentPotd'] : 'wikimedia';
+const currentPotd = localStorage.currentPotd ? localStorage.currentPotd : 'wikimedia';
 
 const potdTitle = {};
 const potdUrl = {};
 const updateWallpaperBy = {};
 
-potdTitle['wikimedia'] = "Wikimedia Commons 'Picture of the day'";
-potdUrl['wikimedia'] = 'https://commons.wikimedia.org/wiki/Main_Page';
-updateWallpaperBy['wikimedia'] = function () {
+potdTitle.wikimedia = "Wikimedia Commons 'Picture of the day'";
+potdUrl.wikimedia = 'https://commons.wikimedia.org/wiki/Main_Page';
+updateWallpaperBy.wikimedia = function () {
     // see https://www.mediawiki.org/wiki/API:Showing_interesting_content
     updateWallpaper('wikimedia', 'https://commons.wikimedia.org/w/api.php?action=query&format=json&prop=imageinfo&generator=images&formatversion=2&iiprop=url&titles=Template%3APotd%2F', '', 'url', null, 'jpg');
 };
 
-potdTitle['nasa'] = "NASA 'Astronomy Picture of the day'";
-potdUrl['nasa'] = 'https://apod.nasa.gov/';
-updateWallpaperBy['nasa'] = function () {
+potdTitle.nasa = "NASA 'Astronomy Picture of the day'";
+potdUrl.nasa = 'https://apod.nasa.gov/';
+updateWallpaperBy.nasa = function () {
     // see https://api.nasa.gov/api.html#apod
     updateWallpaper('nasa', 'https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&date=', '', 'url', null, 'jpg');
 };
 
-potdTitle['nationalgeographic'] = "National Geographic 'Photo of the day'";
-potdUrl['nationalgeographic'] = 'https://www.nationalgeographic.com/photography/photo-of-the-day/';
-updateWallpaperBy['nationalgeographic'] = function () {
+potdTitle.nationalgeographic = "National Geographic 'Photo of the day'";
+potdUrl.nationalgeographic = 'https://www.nationalgeographic.com/photography/photo-of-the-day/';
+updateWallpaperBy.nationalgeographic = function () {
     // see https://www.nationalgeographic.com/photography/photo-of-the-day/_jcr_content/.gallery.json
     updateWallpaper('nationalgeographic', 'https://www.nationalgeographic.com/photography/photo-of-the-day/_jcr_content/.gallery.', '.json', 'url', 'originalUrl', null);
 };
@@ -36,9 +36,9 @@ function updateWallpaper(potdName, apiUrl, suffix, firstKey, secondKey, ext) {
     potd.text = chrome.i18n.getMessage('loading');
     potd.href = '';
 
-    const lastPotd = localStorage['lastPotd'];
-    const lastApiRequest = localStorage['lastApiRequest'];
-    const lastImageUrl = localStorage['lastImageUrl'];
+    const lastPotd = localStorage.lastPotd;
+    const lastApiRequest = localStorage.lastApiRequest;
+    const lastImageUrl = localStorage.lastImageUrl;
 
     const now = new Date();
     const utc = new Date(now.valueOf() + now.getTimezoneOffset() * 60000);
@@ -59,6 +59,7 @@ function updateWallpaper(potdName, apiUrl, suffix, firstKey, secondKey, ext) {
     let imageUrl = '';
 
     xmlhttpRequest.open('GET', apiRequest, true);
+
     console.log(`calling api : ${apiRequest}`);
 
     xmlhttpRequest.onreadystatechange = function () {
@@ -80,6 +81,7 @@ function updateWallpaper(potdName, apiUrl, suffix, firstKey, secondKey, ext) {
 
                                 if (!secondKey) {
                                     setWallpaper(potdName, apiRequest, imageUrl);
+
                                     done = true;
                                 }
                             }
@@ -87,8 +89,10 @@ function updateWallpaper(potdName, apiUrl, suffix, firstKey, secondKey, ext) {
                         } else if (key === secondKey) {
 
                             if (!ext || value.endsWith(ext)) {
-                                imageUrl = imageUrl + value;
+                                imageUrl += value;
+
                                 setWallpaper(potdName, apiRequest, imageUrl);
+
                                 done = true;
                             }
                         }
@@ -115,9 +119,9 @@ function setWallpaper(potdName, apiRequest, imageUrl) {
     if (!apiRequest || apiRequest.length === 0 || !imageUrl || imageUrl.length === 0) {
         console.log(`trying to use the last data due to invalid imageUrl : ${imageUrl} and/or api request : ${apiRequest}`);
 
-        potdName = localStorage['lastPotd'];
-        apiRequest = localStorage['lastApiRequest'];
-        imageUrl = localStorage['lastImageUrl'];
+        potdName = localStorage.lastPotd;
+        apiRequest = localStorage.lastApiRequest;
+        imageUrl = localStorage.lastImageUrl;
     }
 
     if (!apiRequest || apiRequest.length === 0 || !imageUrl || imageUrl.length === 0) {
@@ -131,9 +135,9 @@ function setWallpaper(potdName, apiRequest, imageUrl) {
     wallpaper.onload = function () {
         console.log(`image successfully loaded from : ${imageUrl}`);
 
-        localStorage['lastPotd'] = potdName;
-        localStorage['lastApiRequest'] = apiRequest;
-        localStorage['lastImageUrl'] = imageUrl;
+        localStorage.lastPotd = potdName;
+        localStorage.lastApiRequest = apiRequest;
+        localStorage.lastImageUrl = imageUrl;
 
         let f = 0.0;
 

@@ -4,19 +4,19 @@
 
 ## description
 
-Simple Chrome extension that shows 'Photo of the day' on the 'New Tab' page with digital clock.
+Simple light-weight Chrome extension that shows beautiful 'Photo of the day' on the 'New Tab' page with a digital clock.
 
 Currently, Wikimedia Commons 'Picture of the day', "NASA 'Astronomy Picture of the day' and National Geographic 'Photo of the day' are supported.
 
-This software is 'Open Source', So please visit <https://github.com/kemunpus/PotdClock> for more details.
+No ads, harmful behavior, and unnecessary network accesses. Very small and clean program that discloses all source codes as the open source project. Please visit <https://github.com/kemunpus/PotdClock> for more details.
 
 ## 概要
 
-'今日の一枚'をデジタルクロックと共に'新しいタブ'に表示する Chrome 拡張です。
+美しい'今日の一枚'をデジタルクロックと共に'新しいタブ'に表示するためのシンプルで軽量な Chrome 拡張です。
 
-現在は Wikimedia Commons 'Picture of the day'、 "NASA 'Astronomy Picture of the day'、National Geographic 'Photo of the day' をサポートしています。
+現時点では Wikimedia Commons 'Picture of the day'、 "NASA 'Astronomy Picture of the day'、National Geographic 'Photo of the day' をサポートしています。
 
-このソフトウェアはオープンソースです。詳しくは <https://github.com/kemunpus/PotdClock> をご覧ください。
+広告や有害な処理、不要なネットワークへのアクセスなどはありません。すべてのソースコードをオープンソースとして公開していますので、詳しくは <https://github.com/kemunpus/PotdClock> をご覧ください。
 
 ## Chrome Web Store
 

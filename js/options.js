@@ -5,9 +5,9 @@
 
 i18nConvert();
 
-showSec.checked = localStorage['showSec'] === 'true' ? true : false;
-showDate.checked = localStorage['showDate'] === 'true' ? true : false;
-showMemory.checked = localStorage['showMemory'] === 'true' ? true : false;
+showSec.checked = localStorage.showSec === 'true' ? true : false;
+showDate.checked = localStorage.showDate === 'true' ? true : false;
+showMemory.checked = localStorage.showMemory === 'true' ? true : false;
 
 for (let potd in potdTitle) {
     const option = document.createElement('option');
@@ -19,33 +19,33 @@ for (let potd in potdTitle) {
     option.setAttribute('value', potd);
     option.innerHTML = potdTitle[potd];
 
-    potds.appendChild(option);
+    potdList.appendChild(option);
 }
 
-potds.onchange = function () {
-    updateWallpaperBy[potds.value]();
+potdList.onchange = function () {
+    updateWallpaperBy[potdList.value]();
 };
 
 save.onclick = function () {
-    localStorage['currentPotd'] = potds.value;
-    localStorage['showSec'] = showSec.checked ? 'true' : 'false';
-    localStorage['showDate'] = showDate.checked ? 'true' : 'false';
-    localStorage['showMemory'] = showMemory.checked ? 'true' : 'false';
-    localStorage['lastPotd'] = '';
-    localStorage['lastApiRequest'] = '';
-    localStorage['lastImageUrl'] = '';
+    localStorage.currentPotd = potdList.value;
+    localStorage.showSec = showSec.checked ? 'true' : 'false';
+    localStorage.showDate = showDate.checked ? 'true' : 'false';
+    localStorage.showMemory = showMemory.checked ? 'true' : 'false';
+    localStorage.lastPotd = '';
+    localStorage.lastApiRequest = '';
+    localStorage.lastImageUrl = '';
 
     closeOptions();
 };
 
 reset.onclick = function () {
-    localStorage['currentPotd'] = '';
-    localStorage['showSec'] = 'false';
-    localStorage['showDate'] = 'false';
-    localStorage['showMemory'] = 'false';
-    localStorage['lastPotd'] = '';
-    localStorage['lastApiRequest'] = '';
-    localStorage['lastImageUrl'] = '';
+    localStorage.currentPotd = '';
+    localStorage.showSec = 'false';
+    localStorage.showDate = 'false';
+    localStorage.showMemory = 'false';
+    localStorage.lastPotd = '';
+    localStorage.lastApiRequest = '';
+    localStorage.lastImageUrl = '';
 
     closeOptions();
 };
@@ -59,8 +59,8 @@ updateWallpaperBy[currentPotd]();
 function closeOptions() {
 
     chrome.tabs.create({
-        'url': 'chrome://newtab',
-        'selected': true
+        url: 'chrome://newtab',
+        selected: true
     }, null);
 
     window.close();

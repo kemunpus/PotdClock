@@ -8,9 +8,9 @@ updateClock();
 updateWallpaperBy[currentPotd]();
 
 function updateClock() {
-    const showSec = localStorage['showSec'] === 'true' ? true : false;
-    const showDate = localStorage['showDate'] === 'true' ? true : false;
-    const showMemory = localStorage['showMemory'] === 'true' ? true : false;
+    const showSec = localStorage.showSec === 'true' ? true : false;
+    const showDate = localStorage.showDate === 'true' ? true : false;
+    const showMemory = localStorage.showMemory === 'true' ? true : false;
 
     const now = new Date();
 
@@ -18,10 +18,11 @@ function updateClock() {
     date.firstChild.data = showDate ? now.toLocaleDateString() : '';
 
     if (showMemory) {
-        memory.style.display = 'block';
 
         chrome.system.memory.getInfo(function (info) {
             memory.value = 1.0 - info.availableCapacity / info.capacity;
+
+            memory.style.display = 'block';
         });
 
     } else {

@@ -1,67 +1,68 @@
 /**
- * @author <kemunpus@hotmail.com>
+ * @author kemunpus
  */
+
 'use strict';
 
-i18nConvert();
+(() => {
 
-showSec.checked = localStorage.showSec === 'true' ? true : false;
-showDate.checked = localStorage.showDate === 'true' ? true : false;
-showMemory.checked = localStorage.showMemory === 'true' ? true : false;
-
-for (let potd in potdTitle) {
-    const option = document.createElement('option');
-
-    if (currentPotd === potd) {
-        option.setAttribute('selected', 'selected');
+    for (let element of document.getElementsByTagName('html')) {
+        element.innerHTML = element.innerHTML.toString().replace(/__MSG_(\w+)__/g, (match, value) => {
+            return value ? chrome.i18n.getMessage(value) : '';
+        });
     }
 
-    option.setAttribute('value', potd);
-    option.innerHTML = potdTitle[potd];
+    showSec.checked = Boolean(localStorage.showSec);
+    showDate.checked = Boolean(localStorage.showDate);
+    showMemory.checked = Boolean(localStorage.showMemory);
 
-    potdList.appendChild(option);
-}
+    for (let potd in sites) {
 
-potdList.onchange = function () {
-    updateWallpaperBy[potdList.value]();
-};
+        if (sites[potd].title) {
+            const option = document.createElement('option');
 
-save.onclick = function () {
-    localStorage.currentPotd = potdList.value;
-    localStorage.showSec = showSec.checked ? 'true' : 'false';
-    localStorage.showDate = showDate.checked ? 'true' : 'false';
-    localStorage.showMemory = showMemory.checked ? 'true' : 'false';
-    localStorage.lastPotd = '';
-    localStorage.lastApiRequest = '';
-    localStorage.lastImageUrl = '';
+            if (potd === localStorage.currentPotd) {
+                option.setAttribute('selected', 'selected');
+            }
 
-    closeOptions();
-};
+            option.setAttribute('value', potd);
+            option.innerHTML = sites[potd].title;
 
-reset.onclick = function () {
-    localStorage.currentPotd = '';
-    localStorage.showSec = 'false';
-    localStorage.showDate = 'false';
-    localStorage.showMemory = 'false';
-    localStorage.lastPotd = '';
-    localStorage.lastApiRequest = '';
-    localStorage.lastImageUrl = '';
+            potdList.appendChild(option);
+        }
+    }
 
-    closeOptions();
-};
+    const finish = () => {
+        window.close();
 
-cancel.onclick = function () {
-    closeOptions();
-};
+        chrome.tabs.create({
+            url: 'chrome://newtab',
+            selected: true
+        }, null);
+    };
 
-updateWallpaperBy[currentPotd]();
+    save.onclick = () => {
+        localStorage.currentPotd = potdList.value;
+        localStorage.showSec = showSec.checked ? '1' : '';
+        localStorage.showDate = showDate.checked ? '1' : '';
+        localStorage.showMemory = showMemory.checked ? '1' : '';
+        localStorage.lastPotd = '';
+        localStorage.lastApiRequest = '';
+        localStorage.lastImageUrl = '';
 
-function closeOptions() {
+        finish();
+    };
 
-    chrome.tabs.create({
-        url: 'chrome://newtab',
-        selected: true
-    }, null);
+    reset.onclick = () => {
+        localStorage.currentPotd = '';
+        localStorage.showSec = '';
+        localStorage.showDate = '';
+        localStorage.showMemory = '';
+        localStorage.lastPotd = '';
+        localStorage.lastApiRequest = '';
+        localStorage.lastImageUrl = '';
 
-    window.close();
-}
+        finish();
+    };
+
+})();

@@ -1,12 +1,18 @@
 {
+  "name": {
+    "message": "'Photo of the day' Clock"
+  },
   "description": {
     "message": "'今日の一枚'をデジタルクロックと共に'新しいタブ'に表示します."
   },
+  "calling": {
+    "message": "サイトを呼び出し中…"
+  },
   "loading": {
-    "message": "読み込み中..."
+    "message": "写真を取得中…"
   },
   "load_error": {
-    "message": "今は写真を取得することができないようです..."
+    "message": "サイトから写真が取得できないようです…"
   },
   "potd": {
     "message": "写真を取得するサイト:"
@@ -24,12 +30,9 @@
     "message": "メモリの使用率を表示します"
   },
   "save": {
-    "message": " 保存 "
+    "message": "　保存　"
   },
   "reset": {
     "message": "リセット"
-  },
-  "cancel": {
-    "message": "キャンセル"
   }
 }

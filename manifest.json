@@ -1,8 +1,8 @@
 {
   "update_url": "https://clients2.google.com/service/update2/crx",
   "manifest_version": 2,
-  "version": "1.0.9",
-  "author": "kemunpus@hotmail.com",
+  "version": "1.1.1",
+  "author": "kemunpus",
   "name": "'Photo of the day' Clock",
   "short_name": "PotdClock",
   "description": "__MSG_description__",
@@ -13,9 +13,13 @@
     "48": "image/icon-48.png",
     "128": "image/icon-128.png"
   },
-  "options_page": "html/options.html",
+  "options_ui": {
+    "page": "html/options.html",
+    "chrome_style": true,
+    "open_in_tab": false
+  },
   "chrome_url_overrides": {
-    "newtab": "html/main.html"
+    "newtab": "html/newtab.html"
   },
   "permissions": [
     "storage",

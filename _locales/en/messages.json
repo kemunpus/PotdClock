@@ -1,18 +1,24 @@
 {
+  "name": {
+    "message": "'Photo of the day' Clock"
+  },
   "description": {
     "message": "Simple Chrome extension that shows 'Photo of the day' on the 'New Tab' page with a digital clock."
   },
+  "calling": {
+    "message": "Calling site..."
+  },
   "loading": {
-    "message": "loading..."
+    "message": "Loading photo..."
   },
   "load_error": {
-    "message": "sorry, the web-site seem to be down..."
+    "message": "Sorry, The site seem to be down..."
   },
   "potd": {
-    "message": "Source Web-Site:"
+    "message": "Source Site:"
   },
   "options": {
-    "message": "Display options:"
+    "message": "Display Options:"
   },
   "show_sec": {
     "message": "Show seconds in a clock"
@@ -28,8 +34,5 @@
   },
   "reset": {
     "message": "Reset"
-  },
-  "cancel": {
-    "message": "Cancel"
   }
 }

@@ -1,6 +1,6 @@
-# 'Photo of the day' Clock (PotdClock)
+﻿# 'Photo of the day' Clock (PotdClock)
 
-![top-page](https://raw.githubusercontent.com/kemunpus/PotdClock/master/store/promo-440x280.png)
+![top-page](https://raw.githubusercontent.com/kemunpus/PotdClock/master/store/promotion-440x280.png)
 
 ## description
 

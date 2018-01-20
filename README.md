@@ -2,7 +2,7 @@
 
 ![top-page](https://raw.githubusercontent.com/kemunpus/PotdClock/master/store/promotion-440x280.png)
 
-## description
+## Overview
 
 Simple light-weight Chrome extension that shows beautiful 'Photo of the day' on the 'New Tab' page with a digital clock.
 

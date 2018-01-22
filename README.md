@@ -20,4 +20,4 @@ No ads, harmful behavior, and unnecessary network accesses. Very small and clean
 
 ## Chrome Web Store
 
-<https://chrome.google.com/webstore/detail/photo-of-the-day-clock/kfokfhaepfjlmbfnmjgiolodammikojh?utm_source=chrome-app-launcher-info-dialog>
+<https://chrome.google.com/webstore/detail/photo-of-the-day-clock/kfokfhaepfjlmbfnmjgiolodammikojh>

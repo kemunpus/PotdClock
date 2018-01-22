@@ -13,7 +13,6 @@ const sites = {
         apiSuffix: '',
         firstKey: 'url',
         secondKey: '',
-        validExt: '.jpg',
         baseUrl: ''
     },
 
@@ -24,7 +23,6 @@ const sites = {
         apiSuffix: '',
         firstKey: 'url',
         secondKey: '',
-        validExt: '.jpg',
         baseUrl: ''
     },
 
@@ -35,7 +33,6 @@ const sites = {
         apiSuffix: '.json',
         firstKey: 'url',
         secondKey: 'originalUrl',
-        validExt: '',
         baseUrl: ''
     },
 
@@ -46,7 +43,6 @@ const sites = {
         apiSuffix: '',
         firstKey: 'url',
         secondKey: '',
-        validExt: '.jpg',
         baseUrl: 'http://www.bing.com/'
     },
 
@@ -98,31 +94,31 @@ const sites = {
                         if (!done && value) {
 
                             if (key === potdSite.firstKey) {
+                                imageUrl += value;
 
-                                if (!potdSite.validExt || value.endsWith(potdSite.validExt)) {
-                                    imageUrl += value;
-
-                                    if (!potdSite.secondKey) {
-                                        sites.setImage(potd, apiRequest, imageUrl);
-
-                                        done = true;
-                                    }
-                                }
-
-                            } else if (key === potdSite.secondKey) {
-
-                                if (!potdSite.validExt || value.endsWith(potdSite.validExt)) {
-                                    imageUrl += value;
-
+                                if (!potdSite.secondKey) {
                                     sites.setImage(potd, apiRequest, imageUrl);
 
                                     done = true;
                                 }
+
+                            } else if (key === potdSite.secondKey) {
+                                imageUrl += value;
+
+                                sites.setImage(potd, apiRequest, imageUrl);
+
+                                done = true;
                             }
                         }
 
                         return value;
                     });
+
+                    if (!done) {
+                        console.log(`no image url: ${apiRequest}`);
+
+                        site.text = chrome.i18n.getMessage('load_error');
+                    }
 
                 } else {
                     console.log(`api call failed : ${apiRequest}`);

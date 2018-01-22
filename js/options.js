@@ -23,6 +23,7 @@
 
             if (potd === localStorage.currentPotd) {
                 option.setAttribute('selected', 'selected');
+                site.setAttribute("href", sites[potd].url);
             }
 
             option.setAttribute('value', potd);
@@ -32,13 +33,8 @@
         }
     }
 
-    const finish = () => {
-        window.close();
-
-        chrome.tabs.create({
-            url: 'chrome://newtab',
-            selected: true
-        }, null);
+    potdList.onchange = () => {
+        site.setAttribute("href", sites[potdList.value].url);
     };
 
     save.onclick = () => {
@@ -63,6 +59,15 @@
         localStorage.lastImageUrl = '';
 
         finish();
+    };
+
+    const finish = () => {
+        window.close();
+
+        chrome.tabs.create({
+            url: 'chrome://newtab',
+            selected: true
+        }, null);
     };
 
 })();

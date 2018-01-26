@@ -42,8 +42,6 @@
         localStorage.showSec = showSec.checked ? '1' : '';
         localStorage.showDate = showDate.checked ? '1' : '';
         localStorage.showMemory = showMemory.checked ? '1' : '';
-        localStorage.lastPotd = '';
-        localStorage.lastApiRequest = '';
         localStorage.lastImageUrl = '';
 
         finish();
@@ -54,8 +52,6 @@
         localStorage.showSec = '';
         localStorage.showDate = '';
         localStorage.showMemory = '';
-        localStorage.lastPotd = '';
-        localStorage.lastApiRequest = '';
         localStorage.lastImageUrl = '';
 
         finish();

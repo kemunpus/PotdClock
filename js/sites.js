@@ -53,11 +53,18 @@ const sites = {
             potd = sites.defaultPotd;
         }
 
-        const potdSite = sites[potd];
-        const lastPotd = localStorage.lastPotd;
-        const lastApiRequest = localStorage.lastApiRequest;
         const lastImageUrl = localStorage.lastImageUrl;
 
+        if (!window.navigator.onLine) {
+
+            if (lastImageUrl) {
+                sites.setImage(potd, lastImageUrl);
+            }
+
+            return;
+        }
+
+        const potdSite = sites[potd];
         const now = new Date();
         const today = now.getUTCFullYear() + '-' + ('00' + (now.getUTCMonth() + 1)).slice(-2) + '-' + ('00' + now.getUTCDate()).slice(-2);
 
@@ -65,14 +72,6 @@ const sites = {
 
         site.text = chrome.i18n.getMessage('calling');
         site.href = apiRequest;
-
-        if (apiRequest === lastApiRequest) {
-            console.log(`api request is same as last one : ${lastApiRequest}`);
-
-            sites.setImage(lastPotd, lastApiRequest, lastImageUrl);
-
-            return;
-        }
 
         let done = false;
         let imageUrl = potdSite.baseUrl;
@@ -98,17 +97,17 @@ const sites = {
                                 imageUrl += value;
 
                                 if (!potdSite.secondKey) {
-                                    sites.setImage(potd, apiRequest, imageUrl);
-
                                     done = true;
                                 }
 
                             } else if (key === potdSite.secondKey) {
                                 imageUrl += value;
 
-                                sites.setImage(potd, apiRequest, imageUrl);
-
                                 done = true;
+                            }
+
+                            if (done) {
+                                sites.setImage(potd, imageUrl);
                             }
                         }
 
@@ -132,29 +131,16 @@ const sites = {
         xmlhttpRequest.send();
     },
 
-    setImage: (potd, apiRequest, imageUrl) => {
+    setImage: (potd, imageUrl) => {
         wallpaper.style.opacity = 0.0;
 
         site.text = chrome.i18n.getMessage('loading');
         site.href = imageUrl;
 
-        if (!apiRequest || !imageUrl) {
-            potd = localStorage.lastPotd;
-            apiRequest = localStorage.lastApiRequest;
-            imageUrl = localStorage.lastImageUrl;
-
-            if (!apiRequest || !imageUrl) {
-                site.text = chrome.i18n.getMessage('load_error');
-
-                return;
-            }
-        }
-
         console.log(`loading image from : ${imageUrl}`);
 
         wallpaper.onload = () => {
             localStorage.lastPotd = potd;
-            localStorage.lastApiRequest = apiRequest;
             localStorage.lastImageUrl = imageUrl;
 
             let f = 0.0;

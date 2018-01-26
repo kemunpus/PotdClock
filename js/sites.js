@@ -5,6 +5,7 @@
 'use strict';
 
 const sites = {
+    defaultPotd: 'wikimedia',
 
     wikimedia: {
         title: "Wikimedia Commons 'Picture of the day'",
@@ -49,7 +50,7 @@ const sites = {
     setWallpaper: (potd) => {
 
         if (!potd) {
-            potd = 'wikimedia';
+            potd = sites.defaultPotd;
         }
 
         const potdSite = sites[potd];
@@ -66,19 +67,19 @@ const sites = {
         site.href = apiRequest;
 
         if (apiRequest === lastApiRequest) {
-            console.log(`api request might be same as the last one : ${lastApiRequest}`);
+            console.log(`api request is same as last one : ${lastApiRequest}`);
 
             sites.setImage(lastPotd, lastApiRequest, lastImageUrl);
 
             return;
         }
 
-        const xmlhttpRequest = new XMLHttpRequest();
-
         let done = false;
         let imageUrl = potdSite.baseUrl;
 
         console.log(`calling api : ${apiRequest}`);
+
+        const xmlhttpRequest = new XMLHttpRequest();
 
         xmlhttpRequest.open('GET', apiRequest, true);
 
@@ -141,12 +142,12 @@ const sites = {
             potd = localStorage.lastPotd;
             apiRequest = localStorage.lastApiRequest;
             imageUrl = localStorage.lastImageUrl;
-        }
 
-        if (!apiRequest || !imageUrl) {
-            site.text = chrome.i18n.getMessage('load_error');
+            if (!apiRequest || !imageUrl) {
+                site.text = chrome.i18n.getMessage('load_error');
 
-            return;
+                return;
+            }
         }
 
         console.log(`loading image from : ${imageUrl}`);

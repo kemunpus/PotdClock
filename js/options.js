@@ -64,10 +64,7 @@
     const finish = () => {
         window.close();
 
-        chrome.tabs.create({
-            url: 'chrome://newtab',
-            selected: true
-        }, null);
+        chrome.tabs.create({ url: 'chrome://newtab', selected: true }, null);
     };
 
 })();

@@ -1,4 +1,4 @@
-{
+﻿{
   "name": {
     "message": "'Photo of the day' Clock"
   },
@@ -30,7 +30,7 @@
     "message": "メモリの使用率を表示します"
   },
   "save": {
-    "message": "　保存　"
+    "message": "　設定　"
   },
   "reset": {
     "message": "リセット"

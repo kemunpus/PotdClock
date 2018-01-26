@@ -18,6 +18,7 @@ hr {
     font-size: large;
     text-align: center;
     white-space: nowrap;
+    font-weight: bold;
 }
 
 .description {

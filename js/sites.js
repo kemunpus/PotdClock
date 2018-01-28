@@ -81,6 +81,8 @@ const sites = {
         const xmlhttpRequest = new XMLHttpRequest();
 
         xmlhttpRequest.open('GET', apiRequest, true);
+        xmlhttpRequest.setRequestHeader('Pragma', 'no-cache');
+        xmlhttpRequest.setRequestHeader('Cache-Control', 'no-cache');
 
         xmlhttpRequest.onreadystatechange = () => {
 

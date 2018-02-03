@@ -11,7 +11,7 @@
   "loading": {
     "message": "Loading photo..."
   },
-  "load_error": {
+  "fail": {
     "message": "Sorry, The site seem to be down..."
   },
   "potd": {

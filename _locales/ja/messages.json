@@ -11,7 +11,7 @@
   "loading": {
     "message": "写真を取得中…"
   },
-  "load_error": {
+  "fail": {
     "message": "サイトから写真が取得できないようです…"
   },
   "potd": {

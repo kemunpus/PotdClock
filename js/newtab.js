@@ -17,8 +17,8 @@ const newtab = {
         date.firstChild.data = showDate ? now.toLocaleDateString() : '';
 
         if (showMemory) {
-            chrome.system.memory.getInfo(function (info) {
-                memory.value = 1.0 - info.availableCapacity / info.capacity;
+            chrome.system.memory.getInfo((info) => {
+                memory.value = 1.0 - (info.availableCapacity / info.capacity);
                 memory.style.display = 'block';
             });
 
@@ -27,12 +27,73 @@ const newtab = {
         }
 
         setTimeout(newtab.updateClock, 1000);
+    },
+
+    setWallPaperArgs: {
+        currentPotd: localStorage.currentPotd,
+        lastImageUrl: localStorage.lastImageUrl,
+
+        onStart: (apiRequestUrl, potd) => {
+            site.text = chrome.i18n.getMessage('calling');
+            site.href = apiRequestUrl;
+        },
+
+        onApply: (imageUrl, potd) => {
+            site.text = chrome.i18n.getMessage('loading');
+            site.href = imageUrl;
+
+            let opacity = 0.0;
+            wallpaper.style.opacity = opacity;
+
+            wallpaper.onload = () => {
+                localStorage.lastImageUrl = imageUrl;
+
+                const id = setInterval(() => {
+                    opacity += 0.1;
+
+                    wallpaper.style.opacity = opacity;
+
+                    if (opacity >= 1.0) {
+                        wallpaper.style.opacity = 1.0;
+
+                        site.text = potd.title;
+                        site.href = potd.url;
+
+                        clearInterval(id);
+
+                        return;
+                    }
+
+                }, 100);
+            };
+
+            wallpaper.onerror = () => {
+                site.text = chrome.i18n.getMessage('fail');
+            };
+
+            wallpaper.src = imageUrl;
+        },
+
+        onFail: (apiRequestUrl, potd) => {
+            site.text = chrome.i18n.getMessage('fail');
+            site.href = apiRequestUrl;
+        }
     }
 };
 
 (() => {
     newtab.updateClock();
 
-    sites.setWallpaper(localStorage.currentPotd);
+    if (window.navigator.onLine) {
+        sites.setWallpaper(newtab.setWallPaperArgs);
+
+    } else {
+        console.log('using last image in case of offline');
+
+        if (localStorage.currentPotd && localStorage.lastImageUrl) {
+            newtab.setWallPaperArgs.onApply(localStorage.lastImageUrl, sites[localStorage.currentPotd]);
+        }
+    }
+
 })();
 

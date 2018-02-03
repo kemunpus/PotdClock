@@ -16,12 +16,14 @@
     showDate.checked = Boolean(localStorage.showDate);
     showMemory.checked = Boolean(localStorage.showMemory);
 
+    const currentPotd = localStorage.currentPotd ? localStorage.currentPotd : sites.defaultPotd;
+
     for (let potd in sites) {
 
         if (sites[potd].title) {
             const option = document.createElement('option');
 
-            if (potd === localStorage.currentPotd) {
+            if (potd === currentPotd) {
                 option.setAttribute('selected', 'selected');
                 site.setAttribute("href", sites[potd].url);
             }
@@ -44,7 +46,8 @@
         localStorage.showMemory = showMemory.checked ? '1' : '';
         localStorage.lastImageUrl = '';
 
-        finish();
+        window.close();
+        chrome.tabs.create({ url: 'chrome://newtab', selected: true }, null);
     };
 
     reset.onclick = () => {
@@ -54,12 +57,7 @@
         localStorage.showMemory = '';
         localStorage.lastImageUrl = '';
 
-        finish();
-    };
-
-    const finish = () => {
         window.close();
-
         chrome.tabs.create({ url: 'chrome://newtab', selected: true }, null);
     };
 

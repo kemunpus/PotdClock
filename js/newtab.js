@@ -13,7 +13,7 @@ const newtab = {
 
         const now = new Date();
 
-        time.firstChild.data = ('00' + now.getHours()).slice(-2) + ':' + ('00' + now.getMinutes()).slice(-2) + (showSec ? ':' + ('00' + now.getSeconds()).slice(-2) : '');
+        time.firstChild.data = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0') + (showSec ? ':' + String(now.getSeconds()).padStart(2, '0') : '');
         date.firstChild.data = showDate ? now.toLocaleDateString() : '';
 
         if (showMemory) {

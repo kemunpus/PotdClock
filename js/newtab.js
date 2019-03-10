@@ -42,29 +42,14 @@ const newtab = {
             site.text = chrome.i18n.getMessage('loading');
             site.href = imageUrl;
 
-            let opacity = 0.0;
-            wallpaper.style.opacity = opacity;
+            wallpaper.style.opacity = 0.0;
 
             wallpaper.onload = () => {
                 localStorage.lastImageUrl = imageUrl;
 
-                const id = setInterval(() => {
-                    opacity += 0.1;
-
-                    wallpaper.style.opacity = opacity;
-
-                    if (opacity >= 1.0) {
-                        wallpaper.style.opacity = 1.0;
-
-                        site.text = potd.title;
-                        site.href = potd.url;
-
-                        clearInterval(id);
-
-                        return;
-                    }
-
-                }, 100);
+                site.text = potd.title;
+                site.href = potd.url;
+                wallpaper.style.opacity = 1.0;
             };
 
             wallpaper.onerror = () => {
@@ -96,4 +81,3 @@ const newtab = {
     }
 
 })();
-

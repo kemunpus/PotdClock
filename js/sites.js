@@ -5,23 +5,15 @@
 'use strict';
 
 const sites = {
-    defaultPotd: 'bing',
+    defaultPotd: 'wikimedia',
 
     wikimedia: {
         title: "Wikimedia Commons 'Picture of the day'",
         url: 'https://commons.wikimedia.org/wiki/Main_Page',
         apiUrl: 'https://commons.wikimedia.org/w/api.php?action=query&format=json&prop=imageinfo&generator=images&formatversion=2&iiprop=url&titles=Template%3APotd%2FTODAY',
+        dayoffset: 0,
         getImageUrl: (json) => {
             return json.query.pages[0].imageinfo[0].url;
-        }
-    },
-
-    nationalgeographic: {
-        title: "National Geographic 'Photo of the day'",
-        url: 'https://www.nationalgeographic.com/photography/photo-of-the-day/',
-        apiUrl: 'https://www.nationalgeographic.com/photography/photo-of-the-day/_jcr_content/.gallery.TODAY.json',
-        getImageUrl: (json) => {
-            return json.items[0].originalUrl;
         }
     },
 
@@ -29,8 +21,19 @@ const sites = {
         title: "Bing 'Photo of the day'",
         url: 'https://www.bing.com/',
         apiUrl: 'https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&DUMMY=TODAY',
+        dayoffset: 0,
         getImageUrl: (json) => {
             return 'http://www.bing.com/' + json.images[0].url;
+        }
+    },
+
+    nasa: {
+        title: "NASA 'Astronomy Picture of the day'",
+        url: 'https://apod.nasa.gov/',
+        apiUrl: 'https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&date=TODAY',
+        dayoffset: -1,
+        getImageUrl: (json) => {
+            return json.url;
         }
     },
 
@@ -39,6 +42,7 @@ const sites = {
         console.log(`source site: ${potd.title}`);
 
         const now = new Date();
+        now.setDate(now.getDate() + potd.dayoffset);
         const today = now.getUTCFullYear() + '-' + String(now.getUTCMonth() + 1).padStart(2, '0') + '-' + String(now.getUTCDate()).padStart(2, '0');
 
         const apiRequestUrl = potd.apiUrl.replace('TODAY', today);
@@ -46,7 +50,7 @@ const sites = {
 
         args.onStart(apiRequestUrl, potd);
 
-        fetch(apiRequestUrl).then((response) => {
+        fetch(apiRequestUrl, { mode: 'no-cors' }).then((response) => {
 
             if (response.ok) {
                 return response.json();
@@ -56,7 +60,7 @@ const sites = {
             }
 
         }).then((json) => {
-            // console.log(JSON.stringify(json));
+            console.log(JSON.stringify(json));
 
             const imageUrl = potd.getImageUrl(json);
             console.log(`apply image from url : ${imageUrl}`);

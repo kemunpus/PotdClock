@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "version": "1.4.0",
+    "version": "1.5.0",
     "author": "kemunpus",
     "name": "'Photo of the day' Clock",
     "short_name": "PotdClock",
@@ -21,6 +21,9 @@
         "storage",
         "system.memory"
     ],
+    "background": {
+        "service_worker": "js/background.js"
+    },
     "host_permissions": [
         "https://*.wikimedia.org/",
         "http://*.wikimedia.org/",

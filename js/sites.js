@@ -35,40 +35,5 @@ const sites = {
         getImageUrl: (json) => {
             return json.url;
         }
-    },
-
-    setWallpaper: (args) => {
-        const potd = sites[args.currentPotd ? args.currentPotd : sites.defaultPotd];
-        console.log(`source site: ${potd.title}`);
-
-        const now = new Date();
-        now.setDate(now.getDate() + potd.dayoffset);
-        const today = now.getUTCFullYear() + '-' + String(now.getUTCMonth() + 1).padStart(2, '0') + '-' + String(now.getUTCDate()).padStart(2, '0');
-
-        const apiRequestUrl = potd.apiUrl.replace('TODAY', today);
-        console.log(`calling api : ${apiRequestUrl}`);
-
-        args.onStart(apiRequestUrl, potd);
-
-        fetch(apiRequestUrl, { mode: 'no-cors' }).then((response) => {
-
-            if (response.ok) {
-                return response.json();
-
-            } else {
-                throw new Error();
-            }
-
-        }).then((json) => {
-            console.log(JSON.stringify(json));
-
-            const imageUrl = potd.getImageUrl(json);
-            console.log(`apply image from url : ${imageUrl}`);
-            args.onApply(imageUrl, potd);
-
-        }).catch((error) => {
-            console.log(`api call failed : ${apiRequestUrl}`);
-            args.onFail(apiRequestUrl, potd);
-        });
     }
 };

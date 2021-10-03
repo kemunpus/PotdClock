@@ -1,38 +1,29 @@
 {
-  "name": {
-    "message": "'Photo of the day' Clock"
-  },
-  "description": {
-    "message": "Simple Chrome extension that shows 'Photo of the day' on the 'New Tab' page with a digital clock."
-  },
-  "calling": {
-    "message": "Calling site..."
-  },
-  "loading": {
-    "message": "Loading photo..."
-  },
-  "fail": {
-    "message": "Sorry, The site seem to be down..."
-  },
-  "potd": {
-    "message": "Source Site:"
-  },
-  "options": {
-    "message": "Display Options:"
-  },
-  "show_sec": {
-    "message": "Show seconds in a clock"
-  },
-  "show_date": {
-    "message": "Show date in a clock"
-  },
-  "show_memory": {
-    "message": "Add memory usage bar below a clock"
-  },
-  "save": {
-    "message": " OK "
-  },
-  "reset": {
-    "message": "Reset"
-  }
+    "name": {
+        "message": "'Photo of the day' Clock"
+    },
+    "description": {
+        "message": "Simple extension that shows 'Photo of the day' on the 'New Tab' page with a digital clock."
+    },
+    "site": {
+        "message": "Source Site:"
+    },
+    "options": {
+        "message": "Display Options:"
+    },
+    "show_sec": {
+        "message": "Show seconds in a clock"
+    },
+    "show_date": {
+        "message": "Show date in a clock"
+    },
+    "show_memory": {
+        "message": "Add memory usage bar below a clock"
+    },
+    "save": {
+        "message": "Save"
+    },
+    "reset": {
+        "message": "Reset"
+    }
 }

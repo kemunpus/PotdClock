@@ -1,38 +1,29 @@
 ﻿{
-  "name": {
-    "message": "'Photo of the day' Clock"
-  },
-  "description": {
-    "message": "'今日の一枚'をデジタルクロックと共に'新しいタブ'に表示します."
-  },
-  "calling": {
-    "message": "サイトを呼び出し中…"
-  },
-  "loading": {
-    "message": "写真を取得中…"
-  },
-  "fail": {
-    "message": "サイトから写真が取得できないようです…"
-  },
-  "potd": {
-    "message": "写真を取得するサイト:"
-  },
-  "options": {
-    "message": "表示オプション:"
-  },
-  "show_sec": {
-    "message": "秒を表示します"
-  },
-  "show_date": {
-    "message": "日付を表示します"
-  },
-  "show_memory": {
-    "message": "メモリの使用率を表示します"
-  },
-  "save": {
-    "message": "　設定　"
-  },
-  "reset": {
-    "message": "リセット"
-  }
+    "name": {
+        "message": "'Photo of the day' Clock"
+    },
+    "description": {
+        "message": "'今日の一枚'をデジタルクロックと共に'新しいタブ'に表示します."
+    },
+    "site": {
+        "message": "写真サイト:"
+    },
+    "options": {
+        "message": "表示オプション:"
+    },
+    "show_sec": {
+        "message": "秒を表示します"
+    },
+    "show_date": {
+        "message": "日付を表示します"
+    },
+    "show_memory": {
+        "message": "メモリ使用率を表示します"
+    },
+    "save": {
+        "message": "保存"
+    },
+    "reset": {
+        "message": "リセット"
+    }
 }

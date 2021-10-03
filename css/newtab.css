@@ -18,7 +18,6 @@ body {
 
 .wallpaper {
     position: absolute;
-    opacity: 0.0;
     object-fit: cover;
     width: 100%;
     height: 100%;
@@ -28,20 +27,6 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 0;
-}
-
-.note {
-    position: absolute;
-    bottom: 5%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1;
-}
-
-.site {
-    font-size: 12pt;
-    color: #ffffff;
-    text-shadow: 0 0 25px #000000;
 }
 
 .clock {
@@ -54,19 +39,35 @@ body {
 }
 
 .time {
-    font-size: 120pt;
+    font-size: 20em;
     font-family: monospace;
-    text-shadow: 0 0 25px #000000;
+    text-shadow: 0 0 24px #000000;
 }
 
 .date {
-    font-size: 32pt;
-    text-shadow: 0 0 25px #000000;
+    font-size: 4em;
+    font-family: sans-serif;
+    text-shadow: 0 0 4px #000000;
 }
 
 .memory {
     margin-left: auto;
     margin-right: auto;
     width: 50%;
-    height: 8pt;
+    height: 2em;
+}
+
+.note {
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.info {
+    color: #ffffff;
+    font-size: small;
+    font-family: sans-serif;
+    text-shadow: 0 0 2px #000000;
 }

@@ -1,11 +1,6 @@
 html {
-    background-color: #fefefe;
     color: #000000;
-}
-
-hr {
-    margin-top: 12pt;
-    margin-bottom: 12pt;
+    background-color: #fefefe;
 }
 
 .icon {
@@ -22,7 +17,6 @@ hr {
 }
 
 .description {
-    margin-top: 8pt;
     text-align: center;
 }
 
@@ -34,7 +28,6 @@ hr {
 
 .caption {
     text-align: right;
-    margin: 4pt;
 }
 
 .site {
@@ -44,7 +37,6 @@ hr {
 
 .entry {
     text-align: left;
-    margin: 4pt;
 }
 
 .buttons {

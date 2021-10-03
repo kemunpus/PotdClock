@@ -1,17 +1,16 @@
 /**
  * @author kemunpus
  */
-
 'use strict';
 
 const newtab = {
-
     updateClock: () => {
         const showSec = Boolean(localStorage.showSec);
         const showDate = Boolean(localStorage.showDate);
         const showMemory = Boolean(localStorage.showMemory);
 
         const now = new Date();
+
         time.firstChild.data = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0') + (showSec ? ':' + String(now.getSeconds()).padStart(2, '0') : '');
         date.firstChild.data = showDate ? now.toLocaleDateString() : '';
 
@@ -32,37 +31,36 @@ const newtab = {
 (() => {
     newtab.updateClock();
 
-    site.text = chrome.i18n.getMessage('calling');
+    if (localStorage.lastUrl) {
+        wallpaper.src = localStorage.lastUrl;
+    }
 
-    const currentPotd = localStorage.currentPotd ? localStorage.currentPotd : sites.defaultPotd;
-    const potd = sites[currentPotd];
-    const now = new Date();
-    now.setDate(now.getDate() + potd.dayoffset);
-    const today = now.getUTCFullYear() + '-' + String(now.getUTCMonth() + 1).padStart(2, '0') + '-' + String(now.getUTCDate()).padStart(2, '0');
-    const apiRequestUrl = potd.apiUrl.replace('TODAY', today);
+    const site = sites[localStorage.site ? localStorage.site : defaultSite];
 
-    chrome.runtime.sendMessage({ online: window.navigator.onLine, url: apiRequestUrl }, (response) => {
-        let imageUrl = potd.getImageUrl(response.json);
+    const date = new Date();
+    date.setDate(date.getDate() + site.dayOffset);
+    const today = date.getUTCFullYear() + '-' + String(date.getUTCMonth() + 1).padStart(2, '0') + '-' + String(date.getUTCDate()).padStart(2, '0');
+    const apiUrl = site.apiUrl.replace('TODAY', today);
 
-        if (!imageUrl) {
-            imageUrl = localStorage.lastImageUrl;
+    chrome.runtime.sendMessage({ online: window.navigator.onLine, url: apiUrl }, (response) => {
+        const json = response.json;
+
+        if (json) {
+            const imageUrl = site.imageUrl(json);
+
+            if (imageUrl) {
+                wallpaper.onload = () => {
+                    info.text = site.title;
+                    info.href = site.url;
+                    localStorage.lastUrl = imageUrl;
+                };
+
+                wallpaper.onerror = () => {
+                    localStorage.lastUrl = '';
+                };
+
+                wallpaper.src = imageUrl;
+            }
         }
-
-        wallpaper.onload = () => {
-            wallpaper.style.opacity = 1.0;
-            site.text = potd.title;
-            localStorage.lastImageUrl = imageUrl;
-        };
-
-        wallpaper.onerror = () => {
-            site.text = chrome.i18n.getMessage('fail');
-        };
-
-        site.text = chrome.i18n.getMessage('loading');
-        site.href = imageUrl;
-
-        wallpaper.style.opacity = 0.0;
-        wallpaper.src = imageUrl;
     });
-
 })();

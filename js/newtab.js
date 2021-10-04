@@ -1,66 +1,82 @@
-/**
- * @author kemunpus
- */
-'use strict';
+"use strict";
 
-const newtab = {
-    updateClock: () => {
-        const showSec = Boolean(localStorage.showSec);
-        const showDate = Boolean(localStorage.showDate);
-        const showMemory = Boolean(localStorage.showMemory);
+import { DEFAULT_SITE, SITES } from "./sites.js";
 
-        const now = new Date();
+setInterval(() => {
+    const now = new Date();
 
-        time.firstChild.data = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0') + (showSec ? ':' + String(now.getSeconds()).padStart(2, '0') : '');
-        date.firstChild.data = showDate ? now.toLocaleDateString() : '';
+    time.textContent = String(now.getHours()).padStart(2, "0") + ":" + String(now.getMinutes()).padStart(2, "0") + (Boolean(localStorage.showSec) ? ":" + String(now.getSeconds()).padStart(2, "0") : "");
+    date.textContent = Boolean(localStorage.showDate) ? now.toLocaleDateString() : "";
 
-        if (showMemory) {
-            chrome.system.memory.getInfo((info) => {
-                memory.value = 1.0 - (info.availableCapacity / info.capacity);
-                memory.style.display = 'block';
-            });
+    if (Boolean(localStorage.showMemory)) {
+        chrome.system.memory.getInfo((info) => {
+            memory.value = 1.0 - (info.availableCapacity / info.capacity);
+            memory.style.display = "block";
+        });
 
-        } else {
-            memory.style.display = 'none';
-        }
-
-        setTimeout(newtab.updateClock, 1000);
+    } else {
+        memory.style.display = "none";
     }
-};
+}, 500);
 
-(() => {
-    newtab.updateClock();
+const site = SITES[localStorage.site ? localStorage.site : DEFAULT_SITE];
+console.log(`source site title : ${site.title}`);
+console.log(`source site url : ${site.url}`);
 
-    if (localStorage.lastUrl) {
-        wallpaper.src = localStorage.lastUrl;
-    }
+const today = new Date();
+today.setDate(today.getDate() + site.dayOffset);
+console.log(`today for source site : ${today}`);
 
-    const site = sites[localStorage.site ? localStorage.site : defaultSite];
+const apiUrl = site.apiUrl.replace("_TODAY_", today.getUTCFullYear() + "-" + String(today.getUTCMonth() + 1).padStart(2, "0") + "-" + String(today.getUTCDate()).padStart(2, "0"));
 
-    const date = new Date();
-    date.setDate(date.getDate() + site.dayOffset);
-    const today = date.getUTCFullYear() + '-' + String(date.getUTCMonth() + 1).padStart(2, '0') + '-' + String(date.getUTCDate()).padStart(2, '0');
-    const apiUrl = site.apiUrl.replace('TODAY', today);
+console.log(`calling site api : ${apiUrl}`);
 
-    chrome.runtime.sendMessage({ online: window.navigator.onLine, url: apiUrl }, (response) => {
+chrome.runtime.sendMessage({ online: window.navigator.onLine, url: apiUrl }, (response) => {
+    try {
         const json = response.json;
+        let imageUrl = localStorage.lastUrl;
 
         if (json) {
-            const imageUrl = site.imageUrl(json);
+            console.log(`api returns : ${JSON.stringify(json)}`);
 
-            if (imageUrl) {
+            const url = site.imageUrl(json);
+            console.log(`detected image url : ${url}`);
+
+            if (url) {
+                imageUrl = url;
+
                 wallpaper.onload = () => {
+                    console.log(`image loaded : ${wallpaper.src}`);
+                    localStorage.lastUrl = wallpaper.src;
+
                     info.text = site.title;
                     info.href = site.url;
-                    localStorage.lastUrl = imageUrl;
                 };
 
                 wallpaper.onerror = () => {
-                    localStorage.lastUrl = '';
-                };
+                    console.log(`image load error : ${wallpaper.src}`);
 
-                wallpaper.src = imageUrl;
+                    wallpaper.onload = null;
+                    wallpaper.onerror = null;
+
+                    console.log(`retry with the last image : ${localStorage.lastUrl}`);
+                    wallpaper.src = localStorage.lastUrl;
+                };
             }
         }
-    });
-})();
+
+        if (imageUrl) {
+            console.log(`loading image : ${imageUrl}`);
+            wallpaper.src = imageUrl;
+        }
+
+    } catch (error) {
+        console.log(error);
+
+        wallpaper.onload = null;
+        wallpaper.onerror = null;
+
+        console.log(`use the last image anyway : ${localStorage.lastUrl}`);
+        wallpaper.src = localStorage.lastUrl;
+    }
+});

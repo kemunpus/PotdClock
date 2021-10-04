@@ -1,62 +1,59 @@
-/**
- * @author kemunpus
- */
-'use strict';
+"use strict";
 
-(() => {
-    function setup() {
-        const selectedSite = localStorage.site ? localStorage.site : defaultSite;
+import { DEFAULT_SITE, SITES } from "./sites.js";
 
-        siteList.innerHTML = '';
+function update() {
+    const selectedSite = localStorage.site ? localStorage.site : DEFAULT_SITE;
 
-        for (let i in sites) {
-            const s = document.createElement('option');
+    siteList.innerHTML = "";
 
-            if (i === selectedSite) {
-                s.setAttribute('selected', 'selected');
-                site.setAttribute('href', sites[i].url);
-            }
+    for (let s in SITES) {
+        const opt = document.createElement("option");
 
-            s.setAttribute('value', i);
-            s.innerHTML = sites[i].title;
-
-            siteList.appendChild(s);
+        if (s === selectedSite) {
+            opt.setAttribute("selected", "selected");
+            site.setAttribute("href", SITES[s].url);
         }
 
-        showSec.checked = Boolean(localStorage.showSec);
-        showDate.checked = Boolean(localStorage.showDate);
-        showMemory.checked = Boolean(localStorage.showMemory);
-    };
+        opt.setAttribute("value", s);
+        opt.innerHTML = SITES[s].title;
 
-    for (let element of document.getElementsByTagName('html')) {
-        element.innerHTML = element.innerHTML.toString().replace(/__MSG_(\w+)__/g, (match, value) => {
-            return value ? chrome.i18n.getMessage(value) : '';
-        });
+        siteList.appendChild(opt);
     }
 
-    siteList.onchange = () => {
-        site.setAttribute('href', sites[siteList.value].url);
-    };
+    showSec.checked = Boolean(localStorage.showSec);
+    showDate.checked = Boolean(localStorage.showDate);
+    showMemory.checked = Boolean(localStorage.showMemory);
+}
 
-    save.onclick = () => {
-        localStorage.site = siteList.value;
-        localStorage.showSec = showSec.checked ? '1' : '';
-        localStorage.showDate = showDate.checked ? '1' : '';
-        localStorage.showMemory = showMemory.checked ? '1' : '';
-        localStorage.lastUrl = '';
+for (let element of document.getElementsByTagName("html")) {
+    element.innerHTML = element.innerHTML.toString().replace(/__MSG_(\w+)__/g, (match, value) => {
+        return value ? chrome.i18n.getMessage(value) : "";
+    });
+}
 
-        setup();
-    };
+siteList.onchange = () => {
+    site.setAttribute("href", SITES[siteList.value].url);
+}
 
-    reset.onclick = () => {
-        localStorage.site = '';
-        localStorage.showSec = '';
-        localStorage.showDate = '';
-        localStorage.showMemory = '';
-        localStorage.lastUrl = '';
+save.onclick = () => {
+    localStorage.site = siteList.value;
+    localStorage.showSec = showSec.checked ? "1" : "";
+    localStorage.showDate = showDate.checked ? "1" : "";
+    localStorage.showMemory = showMemory.checked ? "1" : "";
+    localStorage.lastUrl = "";
 
-        setup();
-    };
+    update();
+}
 
-    setup();
-})();
+reset.onclick = () => {
+    localStorage.site = "";
+    localStorage.showSec = "";
+    localStorage.showDate = "";
+    localStorage.showMemory = "";
+    localStorage.lastUrl = "";
+
+    update();
+}
+
+update();
